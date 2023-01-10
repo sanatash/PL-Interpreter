@@ -1,7 +1,7 @@
-from pl_parser import PlParser
-from pl_token import *
+from src.spl_parser import SPlParser
 
-class ReturnCommandParser(PlParser):
+
+class ReturnCommandParser(SPlParser):
     def __init__(self, lexer):
         super().__init__(lexer)
 

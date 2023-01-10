@@ -1,0 +1,5 @@
+LET R5 := 10
+LET R6 := 20
+PRINT R5
+PRINT R6
+END:

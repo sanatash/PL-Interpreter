@@ -1,0 +1,4 @@
+LET R8 := 4
+LET R6 := 5
+LET R2 := R6 * R8
+END:

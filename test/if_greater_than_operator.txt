@@ -1,0 +1,6 @@
+LET R1 := 15
+LET R2 := 20
+LET R3 := R1 + R2
+IF R1 > R2 END
+LET R3 := 45
+END:

@@ -1,0 +1,4 @@
+LET R3 := 2
+LET R4 := 3
+LET R5 := R3 + R4
+END:

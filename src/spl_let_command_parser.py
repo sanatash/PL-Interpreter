@@ -1,6 +1,6 @@
-from pl_parser import PlParser
-from pl_token import *
-from pl_registers import PlRegisters
+from src.spl_parser import SPlParser
+from src.spl_token import *
+from src.spl_registers import SPlRegisters
 
 class Expression:
     def __init__(self, left, operator, right):
@@ -16,7 +16,7 @@ class Expression:
         else:
             return int(self.left)
 
-class LetCommandParser(PlParser):
+class LetCommandParser(SPlParser):
     def __init__(self, lexer):
         super().__init__(lexer)
         self.register_x = None
@@ -36,7 +36,7 @@ class LetCommandParser(PlParser):
         left, operator, right = None, None, None
 
         if self.current_token.type == REGISTER:
-            left = PlRegisters.read_reg(self.current_token.value)
+            left = SPlRegisters.read_reg(self.current_token.value)
             self.eat(REGISTER)
         else:
             left = self.current_token.value
@@ -45,15 +45,15 @@ class LetCommandParser(PlParser):
         if self.current_token.type == PLUS:
             operator = self.current_token.value
             self.eat(PLUS)
-        elif self.current_token.type == MINUS:
+        elif self.current_token.type == MULTIPLY:
             operator = self.current_token.value
-            self.eat(MINUS)
+            self.eat(MULTIPLY)
         else:
             self.eat(EOL)
 
         if operator != None:
             if self.current_token.type == REGISTER:
-                right = PlRegisters.read_reg(self.current_token.value)
+                right = SPlRegisters.read_reg(self.current_token.value)
                 self.eat(REGISTER)
             else:
                 right = self.current_token.value
@@ -63,5 +63,5 @@ class LetCommandParser(PlParser):
 
     def evaluate(self):
         value = self.expression.evaluate()
-        PlRegisters.write_reg(self.register_x, value)
+        SPlRegisters.write_reg(self.register_x, value)
         return None

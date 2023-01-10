@@ -1,6 +1,5 @@
 # Token types
-# EOF (end-of-file) token is used to indicate that
-# there is no more input left for lexical analysis
+
 INTEGER_CONST = 'INTEGER_CONST'
 PLUS          = 'PLUS'
 MINUS         = 'MINUS'
@@ -24,7 +23,7 @@ LESS_THEN     = 'LESS_THEN'
 GREATER_THEN  = 'GREATER_THEN'
 EXPRESSION    = 'EXPRESSION'
 EOL           = 'EOL'
-EOF           = 'EOF'
+END           = 'END'
 
 class Token:
     def __init__(self, type, value):

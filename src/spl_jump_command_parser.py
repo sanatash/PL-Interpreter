@@ -1,7 +1,7 @@
-from pl_parser import PlParser
-from pl_token import *
+from src.spl_parser import SPlParser
+from src.spl_token import *
 
-class CallCommandParser(PlParser):
+class JumpCommandParser(SPlParser):
     def __init__(self, lexer):
         super().__init__(lexer)
         self.goto_label = None

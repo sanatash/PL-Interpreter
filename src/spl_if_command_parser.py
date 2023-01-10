@@ -1,8 +1,8 @@
-from pl_parser import PlParser
-from pl_token import *
-from pl_registers import PlRegisters
+from src.spl_parser import SPlParser
+from src.spl_token import *
+from src.spl_registers import SPlRegisters
 
-class IfCommandParser(PlParser):
+class IfCommandParser(SPlParser):
     def __init__(self, lexer):
         super().__init__(lexer)
         self.register_x = None
@@ -25,8 +25,8 @@ class IfCommandParser(PlParser):
 
     def evaluate(self):
         condition_result = False
-        rx = PlRegisters.read_reg(self.register_x)
-        ry = PlRegisters.read_reg(self.register_y)
+        rx = SPlRegisters.read_reg(self.register_x)
+        ry = SPlRegisters.read_reg(self.register_y)
         if rx != None and ry != None:
             match self.if_operator:
                 case '=':

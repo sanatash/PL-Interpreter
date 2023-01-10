@@ -1,8 +1,8 @@
-from pl_parser import PlParser
-from pl_token import *
-from pl_registers import PlRegisters
+from src.spl_parser import SPlParser
+from src.spl_token import *
+from src.spl_registers import SPlRegisters
 
-class PrintCommandParser(PlParser):
+class PrintCommandParser(SPlParser):
     def __init__(self, lexer):
         super().__init__(lexer)
         self.register_x = None
@@ -12,7 +12,7 @@ class PrintCommandParser(PlParser):
         self.eat(REGISTER)
 
     def evaluate(self):
-        rx = PlRegisters.read_reg(self.register_x)
+        rx = SPlRegisters.read_reg(self.register_x)
         if rx != None:
             print(f"{self.register_x}: {rx}")
         else:

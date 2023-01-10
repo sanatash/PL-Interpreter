@@ -1,0 +1,11 @@
+LET R1 := 5
+LET R2 := 4
+LET R3 := R1 + R2
+IF R1 = R2 END
+LET R3 := 12
+LET R2 :=5
+LET R4 := 14
+IF R1 = R2 BEFORE
+LET R4 := 15
+BEFORE:
+END:

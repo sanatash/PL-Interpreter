@@ -1,5 +1,5 @@
 
-from pl_token import *
+from src.spl_token import *
 
 class Lexer:
     def __init__(self, text):
