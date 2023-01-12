@@ -8,8 +8,9 @@ class PrintCommandParser(SPlParser):
         self.register_x = None
 
     def parse(self):
-        self.register_x = self.current_token.value
-        self.eat(REGISTER)
+        self.lexer.eat(COMMAND)
+        self.register_x = self.lexer.get_current_token().value
+        self.lexer.eat(REGISTER)
 
     def evaluate(self):
         rx = SPlRegisters.read_reg(self.register_x)

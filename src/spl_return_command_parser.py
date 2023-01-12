@@ -6,7 +6,7 @@ class ReturnCommandParser(SPlParser):
         super().__init__(lexer)
 
     def parse(self):
-        self.goto_label = self.current_token.value
+        self.goto_label = self.lexer.get_current_token().value
         # self.eat(GOTO_LABEL)
 
     def evaluate(self):

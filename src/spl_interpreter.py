@@ -45,12 +45,19 @@ class SPlInterpreter:
         en_input_lines = enumerate(input_lines)
         for line in list(en_input_lines):
             lexer = Lexer(line[1])
-            parser = SPlParser(lexer)
-            command = parser.get_command()
+            #parser = SPlParser(lexer)
+            #command = parser.get_command()
+            command = self.get_command_name(lexer)
             if command == "LABEL":
-                token = parser.get_current_token()
+                token = lexer.get_current_token()
                 trim_colon_label = token.value[:-1] # bring the Label without the colon
                 label_dict[trim_colon_label] = line[0]
+
+    def get_command_name(self, lexer):
+        if lexer.get_current_token().value in RESERVED_COMMANDS.keys():
+            return lexer.get_current_token().value
+        elif lexer.get_current_token().type == LABEL:
+            return "LABEL"
 
     def get_command_object(self,command_name, lexer):
         match command_name:
@@ -86,8 +93,8 @@ class SPlInterpreter:
             goto_label = None
             for line in list(en_input_lines):
                 lexer = Lexer(line[1])
-                parser = SPlParser(lexer)
-                cmd_name = parser.get_command()
+                #parser = SPlParser(lexer)
+                cmd_name = self.get_command_name(lexer)
                 cmd = self.get_command_object(cmd_name, lexer)
                 if cmd is not None:
                     cmd.parse()
@@ -128,7 +135,7 @@ class SPlInterpreter:
                         token = ("COMMAND", "PRINT")
 
                     case "LABEL":
-                        token = ("LABEL", parser.get_current_token().value[:-1]) # trim the colon from the label
+                        token = ("LABEL", lexer.get_current_token().value[:-1]) # trim the colon from the label
 
                     case default:
                         raise Exception(f'{cmd_name} command is not defined!')

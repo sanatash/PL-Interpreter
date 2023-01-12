@@ -7,8 +7,9 @@ class JumpCommandParser(SPlParser):
         self.goto_label = None
 
     def parse(self):
-        self.goto_label = self.current_token.value
-        self.eat(GOTO_LABEL)
+        self.lexer.eat(COMMAND)
+        self.goto_label = self.lexer.get_current_token().value
+        self.lexer.eat(GOTO_LABEL)
 
     def evaluate(self):
         return self.goto_label

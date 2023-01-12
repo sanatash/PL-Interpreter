@@ -25,39 +25,40 @@ class LetCommandParser(SPlParser):
 
     def parse(self):
         super().parse()
-        self.register_x = self.current_token.value
-        self.eat(REGISTER)
+        self.lexer.eat(COMMAND)
+        self.register_x = self.lexer.get_current_token().value
+        self.lexer.eat(REGISTER)
 
-        self.eat(ASSIGN)
+        self.lexer.eat(ASSIGN)
 
         self.parse_expression()
 
     def parse_expression(self):
         left, operator, right = None, None, None
 
-        if self.current_token.type == REGISTER:
-            left = SPlRegisters.read_reg(self.current_token.value)
-            self.eat(REGISTER)
+        if self.lexer.get_current_token().type == REGISTER:
+            left = SPlRegisters.read_reg(self.lexer.get_current_token().value)
+            self.lexer.eat(REGISTER)
         else:
-            left = self.current_token.value
-            self.eat(INTEGER_CONST)
+            left = self.lexer.get_current_token().value
+            self.lexer.eat(INTEGER_CONST)
 
-        if self.current_token.type == PLUS:
-            operator = self.current_token.value
-            self.eat(PLUS)
-        elif self.current_token.type == MULTIPLY:
-            operator = self.current_token.value
-            self.eat(MULTIPLY)
+        if self.lexer.get_current_token().type == PLUS:
+            operator = self.lexer.get_current_token().value
+            self.lexer.eat(PLUS)
+        elif self.lexer.get_current_token().type == MULTIPLY:
+            operator = self.lexer.get_current_token().value
+            self.lexer.eat(MULTIPLY)
         else:
-            self.eat(EOL)
+            self.lexer.eat(EOL)
 
         if operator != None:
-            if self.current_token.type == REGISTER:
-                right = SPlRegisters.read_reg(self.current_token.value)
-                self.eat(REGISTER)
+            if self.lexer.get_current_token().type == REGISTER:
+                right = SPlRegisters.read_reg(self.lexer.get_current_token().value)
+                self.lexer.eat(REGISTER)
             else:
-                right = self.current_token.value
-                self.eat(INTEGER_CONST)
+                right = self.lexer.get_current_token().value
+                self.lexer.eat(INTEGER_CONST)
 
         self.expression = Expression(left, operator, right)
 

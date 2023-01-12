@@ -11,17 +11,19 @@ class IfCommandParser(SPlParser):
         self.goto_label = None
 
     def parse(self):
-        self.register_x = self.current_token.value
-        self.eat(REGISTER)
+        self.lexer.eat(COMMAND)
 
-        self.if_operator = self.current_token.value
-        self.eat(IF_OPERATOR)
+        self.register_x = self.lexer.get_current_token().value
+        self.lexer.eat(REGISTER)
 
-        self.register_y = self.current_token.value
-        self.eat(REGISTER)
+        self.if_operator = self.lexer.get_current_token().value
+        self.lexer.eat(IF_OPERATOR)
 
-        self.goto_label = self.current_token.value
-        self.eat(GOTO_LABEL)
+        self.register_y = self.lexer.get_current_token().value
+        self.lexer.eat(REGISTER)
+
+        self.goto_label = self.lexer.get_current_token().value
+        self.lexer.eat(GOTO_LABEL)
 
     def evaluate(self):
         condition_result = False

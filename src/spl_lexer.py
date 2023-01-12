@@ -8,6 +8,7 @@ class Lexer:
         # self.pos is the index into self.text
         self.pos = 0
         self.current_char = self.text[self.pos]
+        self.current_token = self.get_next_token()
 
     def __str__(self):
         return f"Text line: {self.text}, pos: {self.pos}, current_char: {repr(self.current_char)})"
@@ -15,8 +16,24 @@ class Lexer:
     def __repr__(self):
         return self.__str__()
 
-    def error(self):
-        raise Exception('Invalid character')
+    # def error(self):
+    #     raise Exception('Invalid character')
+
+    def get_current_token(self):
+        return self.current_token
+
+    # def error(self):
+    #     raise Exception('Invalid syntax')
+
+    def eat(self, token_type):
+        # compare the current token type with the passed token
+        # type and if they match then "eat" the current token
+        # and assign the next token to the self.current_token,
+        # otherwise raise an exception.
+        if self.current_token.type == token_type:
+            self.current_token = self.get_next_token()
+        else:
+            raise Exception('Not token that was expected')
 
     def advance(self):
         """Advance the 'pos' pointer and set the 'current_char' variable"""
